@@ -1,0 +1,474 @@
+{
+  "datasets": [
+    {
+      "name": "77d21d08",
+      "displayName": "fact_transactions_denorm",
+      "config": {
+        "version": "1.1",
+        "source": "ecommerce.gold.fact_transactions_denorm",
+        "dimensions": [
+          {
+            "name": "date_id",
+            "expr": "source.date_id",
+            "displayName": "Date Id"
+          },
+          {
+            "name": "transaction_date",
+            "expr": "source.transaction_date",
+            "displayName": "Transaction Date"
+          },
+          {
+            "name": "transaction_ts",
+            "expr": "source.transaction_ts",
+            "displayName": "Transaction Ts"
+          },
+          {
+            "name": "transaction_id",
+            "expr": "source.transaction_id",
+            "displayName": "Transaction Id"
+          },
+          {
+            "name": "customer_id",
+            "expr": "source.customer_id",
+            "displayName": "Customer Id"
+          },
+          {
+            "name": "seq_no",
+            "expr": "source.seq_no",
+            "displayName": "Seq No"
+          },
+          {
+            "name": "product_id",
+            "expr": "source.product_id",
+            "displayName": "Product Id"
+          },
+          {
+            "name": "channel",
+            "expr": "source.channel",
+            "displayName": "Channel"
+          },
+          {
+            "name": "coupon_code",
+            "expr": "source.coupon_code",
+            "displayName": "Coupon Code"
+          },
+          {
+            "name": "coupon_flag",
+            "expr": "source.coupon_flag",
+            "displayName": "Coupon Flag"
+          },
+          {
+            "name": "unit_price_currency",
+            "expr": "source.unit_price_currency",
+            "displayName": "Unit Price Currency"
+          },
+          {
+            "name": "quantity",
+            "expr": "source.quantity",
+            "displayName": "Quantity"
+          },
+          {
+            "name": "unit_price",
+            "expr": "source.unit_price",
+            "displayName": "Unit Price"
+          },
+          {
+            "name": "gross_amount",
+            "expr": "source.gross_amount",
+            "displayName": "Gross Amount"
+          },
+          {
+            "name": "discount_percent",
+            "expr": "source.discount_percent",
+            "displayName": "Discount Percent"
+          },
+          {
+            "name": "discount_amount",
+            "expr": "source.discount_amount",
+            "displayName": "Discount Amount"
+          },
+          {
+            "name": "tax_amount",
+            "expr": "source.tax_amount",
+            "displayName": "Tax Amount"
+          },
+          {
+            "name": "net_amount",
+            "expr": "source.net_amount",
+            "displayName": "Net Amount"
+          },
+          {
+            "name": "net_amount_inr",
+            "expr": "source.net_amount_inr",
+            "displayName": "Net Amount Inr"
+          },
+          {
+            "name": "year",
+            "expr": "source.year",
+            "displayName": "Year"
+          },
+          {
+            "name": "month_name",
+            "expr": "source.month_name",
+            "displayName": "Month Name"
+          },
+          {
+            "name": "day_name",
+            "expr": "source.day_name",
+            "displayName": "Day Name"
+          },
+          {
+            "name": "is_weekend",
+            "expr": "source.is_weekend",
+            "displayName": "Is Weekend"
+          },
+          {
+            "name": "quarter",
+            "expr": "source.quarter",
+            "displayName": "Quarter"
+          },
+          {
+            "name": "week",
+            "expr": "source.week",
+            "displayName": "Week"
+          },
+          {
+            "name": "sku",
+            "expr": "source.sku",
+            "displayName": "Sku"
+          },
+          {
+            "name": "category_code",
+            "expr": "source.category_code",
+            "displayName": "Category Code"
+          },
+          {
+            "name": "category_name",
+            "expr": "source.category_name",
+            "displayName": "Category Name"
+          },
+          {
+            "name": "brand_code",
+            "expr": "source.brand_code",
+            "displayName": "Brand Code"
+          },
+          {
+            "name": "brand_name",
+            "expr": "source.brand_name",
+            "displayName": "Brand Name"
+          },
+          {
+            "name": "color",
+            "expr": "source.color",
+            "displayName": "Color"
+          },
+          {
+            "name": "size",
+            "expr": "source.size",
+            "displayName": "Size"
+          },
+          {
+            "name": "rating_count",
+            "expr": "source.rating_count",
+            "displayName": "Rating Count"
+          },
+          {
+            "name": "hour_of_day",
+            "expr": "source.hour_of_day",
+            "displayName": "Hour Of Day"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "top_brands",
+      "displayName": "Top 10 Brands by Revenue",
+      "config": {
+        "version": "1.1",
+        "source": "SELECT \n  brand_name,\n  SUM(net_amount) as total_revenue\nFROM ecommerce.gold.fact_transactions_denorm GROUP BY brand_name ORDER BY total_revenue DESC LIMIT 10\n",
+        "dimensions": [
+          {
+            "name": "brand_name",
+            "expr": "brand_name",
+            "displayName": "Brand Name"
+          }
+        ],
+        "measures": [
+          {
+            "name": "revenue",
+            "expr": "SUM(total_revenue)",
+            "displayName": "Revenue"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "a812eff3",
+      "displayName": "Sales",
+      "layout": [
+        {
+          "widget": {
+            "name": "26236440",
+            "multilineTextboxSpec": {
+              "lines": [
+                "## Sales Insights"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "47e20e09",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "77d21d08",
+                  "fields": [
+                    {
+                      "name": "monthly(transaction_date)",
+                      "expression": "DATE_TRUNC(\"MONTH\", `transaction_date`)"
+                    },
+                    {
+                      "name": "sum(net_amount)",
+                      "expression": "SUM(`net_amount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Monthly Sales Trend",
+                "showTitle": true
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "monthly(transaction_date)",
+                  "format": {
+                    "type": "date",
+                    "date": "locale-short-month"
+                  },
+                  "displayName": "Month",
+                  "scale": {
+                    "type": "temporal"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(net_amount)",
+                  "format": {
+                    "type": "number-currency",
+                    "abbreviation": "compact",
+                    "currencyCode": "USD"
+                  },
+                  "displayName": "Total Sales",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 1,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "8969e5c9",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "top_brands",
+                  "fields": [
+                    {
+                      "name": "brand_name",
+                      "expression": "`brand_name`"
+                    },
+                    {
+                      "name": "measure(revenue)",
+                      "expression": "MEASURE(`revenue`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Top 10 Brands by Revenue",
+                "showTitle": true
+              },
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 2
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 5
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 6
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 7
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 8
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 9
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 10
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "brand_name",
+                  "displayName": "Brands",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "measure(revenue)",
+                  "format": {
+                    "type": "number-currency",
+                    "abbreviation": "compact",
+                    "currencyCode": "USD"
+                  },
+                  "displayName": "Revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 1,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "5fff9d9b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "77d21d08",
+                  "fields": [
+                    {
+                      "name": "brand_name",
+                      "expression": "`brand_name`"
+                    },
+                    {
+                      "name": "avg(discount_percent)",
+                      "expression": "AVG(`discount_percent`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "frame": {
+                "title": "Average Discount % by Brand",
+                "showTitle": true
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "brand_name",
+                  "displayName": "Brand",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(discount_percent)",
+                  "format": {
+                    "type": "number-plain",
+                    "abbreviation": "none",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    }
+                  },
+                  "displayName": "Avg Discount %",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 12,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
